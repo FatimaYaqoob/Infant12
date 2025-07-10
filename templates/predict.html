@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Classification</title>
+</head>
+<body>
+    <h1>Audio Classification</h1>
+    <form id="uploadForm" action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".wav">
+        <button type="submit">Upload and Predict</button>
+    </form>
+    <p id="predictionResult"></p>
+
+    <script>document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var formData = new FormData(this);
+
+    fetch('/predict', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Response Data:', data);
+        document.getElementById('predictionResult').textContent = 'Predicted class: ' + data.predicted_class;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('predictionResult').textContent = 'Error occurred. Please try again.';
+    });
+});
+
+    </script>
+</body>
+</html>

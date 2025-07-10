@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Recorder</title>
+</head>
+<body>
+    <h1>Audio Recorder</h1>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="predict">Predict</button>
+    <script>
+        const startButton = document.getElementById('start');
+        const stopButton = document.getElementById('stop');
+        const predictButton = document.getElementById('predict');
+        let audioChunks = [];
+        let mediaRecorder;
+
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(function(stream) {
+                mediaRecorder = new MediaRecorder(stream);
+
+                mediaRecorder.ondataavailable = function(e) {
+                    audioChunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = function() {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const formData = new FormData();
+                    formData.append('audio_data', audioBlob);
+
+                    fetch('/save_audio', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                };
+            })
+            .catch(function(err) {
+                console.error('Error accessing microphone:', err);
+            });
+
+        startButton.addEventListener('click', function() {
+            audioChunks = [];
+            mediaRecorder.start();
+            console.log('Recording started...');
+        });
+
+        stopButton.addEventListener('click', function() {
+            mediaRecorder.stop();
+            console.log('Recording stopped...');
+        });
+
+        predictButton.addEventListener('click', function() {
+            // You can add code here to handle prediction if needed
+            console.log('Predicting...');
+        });
+    </script>
+</body>
+</html>

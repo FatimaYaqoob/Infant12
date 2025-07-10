@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        :root
+{
+    /* Background Color */
+    --bg-white:#fff;
+    --bg-black:#2C2C2C;
+    --bg-light-pink:#ff007a;
+    --bg-light-gray:#f6f9fe;
+    --bg-gradient:linear-gradient(to top, #ff007a 0%, rgba(142, 0, 116, 1) 100%);
+    --bg-card-shodow:0 0.188rem 1.25rem 0px rgba(0, 0, 0,0.06);
+    --bg-card-shodow:0 2rem 5rem rgb(0,0,0,0.06); 
+    --bg-light-gray-1:#eee; 
+
+
+    /* Text Color */
+    --primary-font:"Poppins", sans-serif;;
+    --text-white:#fff;
+    --text-black:#2C2C2C;
+    --text-light-black:#444;
+    --text-light-pink:#ff007a;
+    --text-light-gray:#7e8085;
+}
+body
+{
+    font-family: var(--primary-font);
+    background-color: var(--bg-white);
+}
+a{
+  text-decoration: none;
+}
+section
+{
+    padding: 2.125rem 0;
+}
+h1
+{
+    font-size: 3.75rem;
+    line-height: 4.25rem;
+    font-weight: 700;
+    color:var(--text-white);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    font-family: var(--secondary-font);
+}
+h3
+{
+    margin-bottom: 1.875rem;
+    line-height: 2.875rem;
+    font-weight: 700;
+    font-size: 2.25rem;
+    color: var(--primary-text);
+    font-family: var(--secondary-font);
+}
+.btn {
+    font-size: 0.938rem;
+    font-weight: 500;
+    color: var(--text-white);
+    line-height: 1;
+    text-align: center;
+    padding: 1.125rem 1.875rem;
+    border: 0 none;
+    border-radius: 0.375rem;
+    outline: 0 none;
+    position: relative;
+    z-index: 1;
+}
+.btn, 
+.btn:active, 
+.btn.sApp-btn:before, 
+.bg-overlay::after{
+    background:var(--bg-gradient);
+} 
+.btn:hover{
+    color:var(--text-white);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+.ptb_100 {
+    padding: 100px 0;
+} 
+
+h3 span
+{
+    color: var(--secondary-color);
+}
+h5
+{
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--primary-text);
+    font-weight: 500;
+    font-family: var(--secondary-font);
+}
+h6
+{
+    font-size: .875rem;
+    color: var(--primary-text);
+    margin-bottom: .9375rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-family: var(--secondary-font);
+}
+p
+{
+    font-size: 1rem;
+    color: var(--text-black);
+    line-height: 1.6325rem;
+
+}
+.section-title:after
+{
+    content:'';
+    background-image:url('logo.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block;
+    margin-top: -0.9375rem;
+    height: .9375rem;
+}
+.header_wrapper .navbar
+{
+    padding:.9375rem 0;
+    background-color: var(--bg-white);
+    -webkit-box-shadow:0 .5rem .375rem -0.375rem rgb(0 0 0/ 40%);
+    box-shadow: 0 .5rem .375rem -0.375rem rgb(0 0 0/ 40%);
+    -webkit-transition: background 0s ease-in-out,margin-top 0s ease-in-out 0s,opacity 0s ease-in-out 0s;
+transition: background 0s ease-in-out,margin-top 0s ease-in-out 0s,opacity 0s ease-in-out 0s;
+
+}
+.header_wrapper .navbar-toggler
+{
+    border: 0;
+    color: var(--primary-text);
+    line-height:2;
+}
+.header_wrapper .navbar-toggler:focus
+{
+    box-shadow: none;
+}
+.header_wrapper .nav-item
+{
+    margin: 0 .625rem;
+
+}
+.header_wrapper .nav-item .nav-link
+{
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--primary-text);
+    display: inline-block;
+} 
+.header_wrapper .nav-item .nav-link:hover,.header_wrapper .nav-item .nav-link:active
+{
+    color: var(--seconday-text);
+}
+#home{
+    min-height: 700px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0) url({{url_for('static', filename='bg.png')}}) no-repeat scroll left center;
+
+    background-size: cover;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    overflow:hidden;
+}
+#home .home_text h2 {
+    font-size: 3.938rem;
+    font-weight: 700;
+    line-height:4.938rem;
+    color:var(--text-white);
+    padding:1.063rem  0;
+}
+#home .home_text p{
+    font-size: 1rem;
+    color:var(--text-white);
+    padding:1.063rem 0;
+}
+#home .home-download-btn{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    flex-wrap: wrap;
+}
+#home .home-download-btn .btn {
+    padding: 1.5rem 3rem;
+    margin-left: 1.5rem;
+    color:var(--text-white);
+    display:flex;
+    align-items:center;  
+    justify-content:center;
+}
+#home .home-download-btn .btn:first-child{
+    margin-left:0;
+}
+#home .home-download-btn .btn:hover { 
+    transform: translateY(-0.313rem);
+    -webkit-transition: all .5s ease-out;
+    -moz-transition: all .5s ease-out;
+    -ms-transition: all .5s ease-out;
+    -o-transition: all .5s ease-out;
+    transition: all .5s ease-out;
+}
+#home .home-download-btn span {
+    font-size: 1.688rem; 
+    margin-right:0.625rem;
+} 
+.home-image{
+    text-align: right;
+    transform: rotate(-345deg);
+}
+.home-image img{
+    animation: float 3s linear infinite;
+}
+@keyframes float{
+    0%, 100%{
+        transform: translateY(0rem);
+    }
+    50%{
+        transform: translateY(-3.5rem);
+    }
+}
+.promo_section{
+    padding:6.25rem 0 4rem;
+}
+.section_heading{
+    margin-bottom:2.813rem;
+}
+.section_heading > h2 {
+    position: relative;
+    padding-bottom: 2.5rem;
+}
+.section_heading > h2::after {
+    position: absolute;
+    content: '';
+    height: 0.125rem;
+    width: 4.563rem;
+    background-color: var(--bg-light-pink);
+    bottom: 1.125rem;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.section_heading h2 span {
+    font-weight: 400;
+    font-size: 2rem;
+}
+.single_promo_hover {
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+    will-change: transform;
+}
+.single_promo_1 {
+    box-shadow: 0 3px 20px 0px rgb(0 0 0 / 12%);
+    border-radius: 1.5rem !important;
+    padding: 1.875rem 2.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom:2.5rem;
+}
+.single_promo_1:before {
+    position: absolute;
+    content: "";
+    width: 0.063rem;
+    height: 0.125rem;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+.single_promo_1:hover:before {
+    width: 100%; 
+    background:var(--bg-gradient);
+}
+.single_promo_hover:hover {
+    box-shadow: 0 2rem 5rem rgb(0 0 0 / 12%);
+}
+.single_promo_1 span {
+    font-size: 30px;
+    background:url({{url_for('static', filename='oo.png')}}) ;
+
+    padding: 54px 0 57px 0;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.single_promo_1 h5 {
+    padding-bottom: 0.438rem;
+}
+.single_promo_1 p {
+    padding-top: 0.625rem;
+    font-size: 0.938rem;
+}
+.single_promo_2 {
+    box-shadow: 0 3px 20px 0px rgb(0 0 0 / 12%);
+    border-radius: 1.5rem !important;
+    padding: 1.875rem 2.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom:2.5rem;
+}
+.single_promo_2:before {
+    position: absolute;
+    content: "";
+    width: 0.063rem;
+    height: 0.125rem;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+.single_promo_2:hover:before {
+    width: 100%;
+    background:var(--bg-gradient);
+}
+.single_promo_2 span {
+    font-size: 30px;
+    background:url({{url_for('static', filename='oo1.png')}}) ;
+
+    padding: 54px 0 57px 0;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.single_promo_2 h5 {
+    padding-bottom: 0.438rem;
+}
+.single_promo_2 p {
+    padding-top: 0.625rem;
+    font-size: 0.938rem;
+}
+.single_promo_7 {
+    box-shadow: 0 3px 20px 0px rgb(0 0 0 / 12%);
+    border-radius: 1.5rem !important;
+    padding: 1.875rem 2.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom:2.5rem;
+}
+.single_promo_7:before {
+    position: absolute;
+    content: "";
+    width: 0.063rem;
+    height: 0.125rem;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+.single_promo_7:hover:before {
+    width: 100%;
+    background:var(--bg-gradient);
+}
+.single_promo_7 span {
+    font-size: 30px;
+    background:url({{url_for('static', filename='oo2.png')}}) ;
+
+    padding: 54px 0 57px 0;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.single_promo_7 h5 {
+    padding-bottom: 0.438rem;
+}
+.single_promo_7 p {
+    padding-top: 0.625rem;
+    font-size: 0.938rem;
+}
+.single_promo_6 {
+    box-shadow: 0 3px 20px 0px rgb(0 0 0 / 12%);
+    border-radius: 1.5rem !important;
+    padding: 1.875rem 2.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom:2.5rem;
+}
+.single_promo_6:before {
+    position: absolute;
+    content: "";
+    width: 0.063rem;
+    height: 0.125rem;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+.single_promo_6:hover:before {
+    width: 100%;
+    background:var(--bg-gradient);
+}
+.single_promo_6 span {
+    font-size: 30px;
+    background:url({{url_for('static', filename='oo3.png')}}) ;
+
+    padding: 54px 0 57px 0;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.single_promo_6 h5 {
+    padding-bottom: 0.438rem;
+}
+.single_promo_6 p {
+    padding-top: 0.625rem;
+    font-size: 0.938rem;
+}
+<!-Responsive Design--->
+
+@media (max-width: 1199px) {
+
+    /* header */
+    .navbar-expand-lg .navbar-nav {
+        align-items: center;
+    }
+
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding: 0;
+        font-size: .875rem;
+    }
+
+    
+
+    
+}
+
+@media (max-width:991px) {
+
+    /* custom css */
+    section {
+        padding: 1.875rem 0;
+    }
+
+    /* 2 Navbar */
+    .header-scrolled {
+        height: auto;
+    }
+
+    .header_wrapper .menu-navbar-nav {
+        text-align: center;
+        
+        padding-bottom: .9375rem;
+    }
+
+    .header_wrapper .nav-item .nav-link {
+        margin-top: .9375rem;
+    }
+
+    
+
+}
+
+@media (max-width: 767px) {
+
+    /* custom css */
+    h1 {
+        font-size: 1.875rem;
+        line-height: 2.5rem;
+    }
+
+    h3 {
+        font-size: 1.75rem;
+        line-height: 2.1875rem;
+    }
+
+    h5 {
+        font-size: 1.25rem;
+    }
+
+    p {
+        font-size: .8125rem;
+        line-height: 1.5rem;
+    }
+
+    
+}
+#scrollUp {
+    position: fixed;
+    right: 2%;
+    bottom: 3%;
+    height: 2.813rem;
+    width: 2.5rem;
+    border-radius: 0.25rem;
+    text-align: center;
+    cursor: pointer;
+    z-index: 500;
+    display: none;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+    background:var(--bg-gradient)
+}
+#scrollUp span{
+    line-height: 2.625rem;
+}
+#scrollUp.scrollActive{
+    display:block;
+}
+.copyright{
+    background:var(--bg-gradient);
+}
+.copyright p,
+.copyright a{
+    color:var(--text-white);
+}
+.single_promo_11 {
+    box-shadow: 0 3px 20px 0px rgb(0 0 0 / 12%);
+    border-radius: 1.5rem !important;
+    padding: 1.875rem 2.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom:2.5rem;
+}
+.single_promo_11:before {
+    position: absolute;
+    content: "";
+    width: 0.063rem;
+    height: 0.125rem;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+.single_promo_11:hover:before {
+    width: 100%;
+    background:var(--bg-gradient);
+}
+.single_promo_11 span {
+    font-size: 30px;
+    background:url({{url_for('static', filename='la.png')}}) ;
+
+    padding: 54px 0 57px 0;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.single_promo_11 h5 {
+    padding-bottom: 0.438rem;
+}
+.single_promo_11 p {
+    padding-top: 0.625rem;
+    font-size: 0.938rem;
+}
+.single_promo_12 {
+    box-shadow: 0 3px 20px 0px rgb(0 0 0 / 12%);
+    border-radius: 1.5rem !important;
+    padding: 1.875rem 2.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom:2.5rem;
+}
+.single_promo_12:before {
+    position: absolute;
+    content: "";
+    width: 0.063rem;
+    height: 0.125rem;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+.single_promo_12:hover:before {
+    width: 100%;
+    background:var(--bg-gradient);
+}
+.single_promo_12 span {
+    font-size: 30px;
+    background:url({{url_for('static', filename='ma.png')}}) ;
+
+    padding: 54px 0 57px 0;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.single_promo_12 h5 {
+    padding-bottom: 0.438rem;
+}
+.single_promo_12 p {
+    padding-top: 0.625rem;
+    font-size: 0.938rem;
+}
+
+
+
+
+    </style>
+    <title>Babble Bot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename='themify-icons.css')}}"> 
+    <link rel="icon" href="{{url_for('static',filename='o.png')}}" type="image/png">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="0" class="navbar-nav" tabindex="0">
+    
+    <header class="header_wrapper" style="position:fixed;top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #fff; /* Example background color */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);">
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#" style="font-size:2rem;font-weight: 900;letter-spacing: 0.063rem;line-height:1.688rem;
+  color:#ff007a;text-transform: uppercase;">
+        <img src="{{url_for('static',filename='o.png')}}" class="img-fluid" height="45" width="45"> Babble Bot
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-stream navbar-toggler-icon"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav menu-navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/page2">Browse the audio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/page1">Real time Recording</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+ <script type="text/javascript">
+        let nav = document.querySelector(".navbar");
+window.onscroll = function () {
+    if (document.documentElement.scrollTop > 50) {
+        nav.classList.add("header-scrolled");
+    } else {
+        nav.classList.remove("header-scrolled");
+    }
+}
+
+// nav hide 
+let navBar = document.querySelectorAll(".nav-link");
+let navCollapse = document.querySelector(".navbar-collapse.collapse");
+navBar.forEach(function (a) {
+    a.addEventListener("click", function () {
+        navCollapse.classList.remove("show");
+    })
+})
+    </script>
+</header>
+
+<section id="home" style="margin-top:80px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="home_text">
+                        <h2 style="margin-top:-190px;">An Infant Cry <span class="text-uppercase">Interpreter</span></h2>
+                        <p>Behold the infant cry interpreter system, unraveling the intricate language of newborns with astonishing clarity.</p>
+                        
+                        <!-- home-donwload-btn -->
+                        <div class="home-download-btn">
+                            <form action="prediction" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="img" accept=".wav, .flac, .ogg, .mp3, .m4a"  style="border:1px solid black;border-radius:20px;" class="btn btn-bordered mt-4">
+                            <input type="submit" name="btn" style="border:1px solid black;margin-left:250px;border-radius:20px;" class="btn btn-bordered mt-4">
+                        </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-lg-6">
+                    <div class="home-image">
+                                                <img style="width:80%;margin-top:-130px;" decoding="async" src="{{ url_for('static', filename='l.png') }}" class="img-fluid">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section class="promo_section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-8">
+                    <!-- section heading -->
+                    <div class="section_heading text-center">
+                        <h2>Services<br><span>Features</span></h2>
+                        <p>
+                            "Experience dependable, professional, seamless, and responsive service."
+
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mobile_px_20">
+                <!-- single-promo -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_promo_hover single_promo_2 text-center">
+                        <div class="circle-icon">
+                            <span></span>
+                        </div>
+                        <h5 style="margin-top:10px;">Upload/Browse Audio</h5>
+                        <p>Used for Testing.</p>
+                    </div>
+                </div>
+                <!-- single-promo -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_promo_hover single_promo_7 text-center">
+                        <div class="circle-icon">
+                            <span></span>
+                        </div>
+                        <h5 style="margin-top:10px;">Real Time Recording</h5>
+                        <p>To be used in real time scenerios</p>
+                    </div>
+                </div>
+                <!-- single-promo -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_promo_hover single_promo_6 text-center">
+                       <div class="circle-icon">
+                            <span></span>
+                        </div>
+                        <h5 style="margin-top:10px;">Alerts</h5>
+                        <p>Notify caregivers of the baby's needs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <section class="promo_section" id="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-8">
+                    <!-- section heading -->
+                    <div class="section_heading text-center">
+                        <h2>Team<br><span>Members</span></h2>
+                        <p>
+                            "Individually, we are one drop. Together, we are an ocean."
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mobile_px_20">
+                <!-- single-promo -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_promo_hover single_promo_1 text-center">
+                        <div class="circle-icon">
+                            <span></span>
+                        </div>
+                        <h5 style="margin-top:10px;">Fatima Yaqoob</h5>
+                        <p>Email: 2021-BS-CS-005@tuf.edu.pk</p>
+                    </div>
+                </div>
+                <!-- single-promo -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_promo_hover single_promo_11 text-center">
+                        <div class="circle-icon">
+                            <span></span>
+                        </div>
+                        <h5 style="margin-top:10px;">Laiba Shahid</h5>
+                        <p>Email: 2021-BS-CS-010@tuf.edu.pk</p>
+                    </div>
+                </div>
+                <!-- single-promo -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_promo_hover single_promo_12 text-center">
+                       <div class="circle-icon">
+                            <span></span>
+                        </div>
+                        <h5 style="margin-top:10px;">Mahnoor Khalid</h5>
+                        <p>Email: 2021-BS-CS-021@tuf.edu.pk</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <footer> 
+        <div class="p-3 copyright">
+        <div class="container">
+            <div class="row align-items-center">
+            <div class="col-12 col-lg-6 p-3 text-center text-lg-start mob-pb-0">
+                <p class="my-0">Copyright © 2025 <a href="#">Babble Bot</a> All Rights Reserved</p>
+            </div>
+            <div class="col-12 col-lg-6 p-3 text-center text-lg-end mob-pt-0">
+            </div>
+            </div>
+        </div>
+        </div> 
+    </footer>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</body>
+</html>
